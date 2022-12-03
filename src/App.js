@@ -1,4 +1,5 @@
 // import logo from './logo.svg';
+import React from 'react'
 import './App.css';
 
 function App() {
@@ -7,14 +8,30 @@ function App() {
   .then((r) => r.json())
   .then((data) => console.log(data));
 
+  function Header() {
+    return (
+      <h1>Hello! Welcome to Maxwell's Dog Walks</h1>
+    )
+  }
+
   function DogWalk() {
     return (
-      <div>This is a DogWalk</div>
+      <div>
+        <form>
+          <input type= "text"></input>
+        </form>
+        <div>This is a DogWalk</div>
+      </div>
+      
     );
   }
 
   return (
-    <DogWalk/>
+    <React.Fragment>
+      <Header/>
+      <DogWalk/>
+    </React.Fragment>
+    
   )
 
   // return (
