@@ -1,12 +1,15 @@
 // import logo from './logo.svg';
 import React from 'react'
 import './App.css';
-import DogWalk from './components/DogWalk.js'
+import DogWalkForm from './components/DogWalkForm.js'
 function App() {
 
-  fetch("http://localhost:9292")
-  .then((r) => r.json())
-  .then((data) => console.log(data));
+
+  
+    fetch("http://localhost:9292/dogs")
+    .then((r) => r.json())
+    .then((data) => console.log(data));
+ 
 
   function Header() {
     return (
@@ -18,7 +21,7 @@ function App() {
   return (
     <React.Fragment>
       <Header/>
-      <DogWalk/>
+      <DogWalkForm/>
     </React.Fragment>
     
   )
