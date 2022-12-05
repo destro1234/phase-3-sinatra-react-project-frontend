@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import React from 'react'
 import './App.css';
-
+import DogWalk from './components/DogWalk.js'
 function App() {
 
   fetch("http://localhost:9292")
@@ -14,18 +14,7 @@ function App() {
     )
   }
 
-  function DogWalk() {
-    return (
-      <div>
-        <form>
-          <input type= "text"></input>
-        </form>
-        <div>This is a DogWalk</div>
-      </div>
-      
-    );
-  }
-
+  
   return (
     <React.Fragment>
       <Header/>
