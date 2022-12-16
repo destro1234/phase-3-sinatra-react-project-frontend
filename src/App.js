@@ -1,15 +1,17 @@
-// import logo from './logo.svg';
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css';
 import DogWalkForm from './components/DogWalkForm.js'
+import DogList from './components/DogList.js'
 function App() {
 
+  const [ allDogs, setAllDogs ] = useState([])
 
-  
+  useEffect(() => {
     fetch("http://localhost:9292/dogs")
     .then((r) => r.json())
-    .then((data) => console.log(data));
- 
+    .then((data) => setAllDogs(data));
+  }, [])
+    
 
   function Header() {
     return (
@@ -17,11 +19,17 @@ function App() {
     )
   }
 
+  function Dogs() {
+    console.log(allDogs)
+    
+  }
+
   
   return (
     <React.Fragment>
       <Header/>
       <DogWalkForm/>
+      <DogList dogs={allDogs}/>
     </React.Fragment>
     
   )
