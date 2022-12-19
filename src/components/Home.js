@@ -2,13 +2,15 @@ import React from 'react'
 import DogWalkForm from './DogWalkForm.js'
 import DogList from './DogList.js'
 import Walk from './Walk.js'
-import { BrowserRouter as Router, Routes,  Route, Redirect } from 'react-router-dom' 
+import { BrowserRouter as Router, Routes,  Route, Redirect, redirect, useNavigate} from 'react-router-dom' 
 
 function Home ({dogs}) {
 
+  const navigate = useNavigate()
+
     function handleClick(event) {
       {console.log(event)}
-      
+      navigate("/walks")
         
     }
 
