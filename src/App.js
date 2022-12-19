@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Routes,  Route, Redirect } from 'react-router-dom' 
+
 import './App.css';
-import DogWalkForm from './components/DogWalkForm.js'
-import DogList from './components/DogList.js'
+import Home from './components/Home.js'
+import Walk from './components/Walk.js'
+// import DogWalkForm from './components/DogWalkForm.js'
+// import DogList from './components/DogList.js'
 function App() {
 
   const [ allDogs, setAllDogs ] = useState([])
@@ -13,24 +17,31 @@ function App() {
   }, [])
     
 
-  function Header() {
-    return (
-      <h1>Hello! Welcome to Maxwell's Dog Walks</h1>
-    )
-  }
+  
 
-  function Dogs() {
-    console.log(allDogs)
-    
-  }
+
 
   
   return (
     <React.Fragment>
-      <Header/>
+
+    <Router>
+        <Routes>
+          <Route path="/walks" element={<Walk/>}></Route>
+          <Route path="/" element={<Home dogs={allDogs}/>}></Route>
+
+          
+        </Routes>
+      </Router>
+
+      
+      
+      {/* <Header/>
       <DogWalkForm/>
-      <DogList dogs={allDogs}/>
+      <DogList dogs={allDogs}/> */}
     </React.Fragment>
+
+
     
   )
 
