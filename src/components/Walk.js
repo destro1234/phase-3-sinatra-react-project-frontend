@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import DogList from './DogList.js'
+import DogWalkForm from './DogWalkForm.js'
 
 
 
-function Walk() {
+function Walk({dogs}) {
     const [dogname, setDogname] = useState("")
     const [dogWalker, setDogWalker] = useState("")
     const [startTime, setStartTime] = useState("")
@@ -33,6 +35,8 @@ function Walk() {
     return (
       <div>
         <h1>Welcome to the walks page!</h1>
+        <DogWalkForm/>
+        <DogList dogs={dogs}/>
         {/* <form>
           <h3> Add a new Dog: </h3>
           <label>Dog: </label>

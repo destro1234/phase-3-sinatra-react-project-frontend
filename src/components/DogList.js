@@ -11,7 +11,10 @@ function DogList({dogs}){
         <h1>These are the dogs</h1>
         <ul>
             {dogs.map( (dog) => (
+                <div>
                 <li>{dog.name}</li>
+                <img src={dog.image}></img>
+                </div>
             ))}
         </ul>
         </div>

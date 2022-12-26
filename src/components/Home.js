@@ -1,15 +1,13 @@
 import React from 'react'
 import DogWalkForm from './DogWalkForm.js'
 import DogList from './DogList.js'
-import Walk from './Walk.js'
-import { BrowserRouter as Router, Routes,  Route, Redirect, redirect, useNavigate} from 'react-router-dom' 
+import { useNavigate} from 'react-router-dom' 
 
 function Home ({dogs}) {
 
   const navigate = useNavigate()
 
     function handleClick(event) {
-      {console.log(event)}
       navigate("/walks")
         
     }
@@ -17,11 +15,11 @@ function Home ({dogs}) {
     return(
         <div>
       <h1>Hello! Welcome to Maxwell's Dog Walks</h1>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/German_Shepherd_-_DSC_0346_%2810096362833%29.jpg"></img>
-      <button onClick={handleClick}>Book a walk</button>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/German_Shepherd_-_DSC_0346_%2810096362833%29.jpg" alt="pic of dog"></img>
+      <button  className="btn btn-primary" onClick={handleClick}>Book a walk</button>
 
-      <DogWalkForm/>
-      <DogList dogs={dogs}/>
+      {/* <DogWalkForm/> */}
+      {/* <DogList dogs={dogs}/> */}
         </div>
     )
 }

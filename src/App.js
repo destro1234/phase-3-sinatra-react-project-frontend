@@ -27,7 +27,7 @@ function App() {
 
     <Router>
         <Routes>
-          <Route path="/walks" element={<Walk/>}></Route>
+          <Route path="/walks" element={<Walk dogs={allDogs}/>}></Route>
           <Route path="/" element={<Home dogs={allDogs}/>}></Route>
 
           

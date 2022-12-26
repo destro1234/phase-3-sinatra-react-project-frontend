@@ -5,7 +5,6 @@ function DogWalkForm() {
     const [name, setName] = useState("")
     const [address, setAddress] = useState("")
     const [owner, setOwner] = useState("")
-    const [temperament, setTemperament] = useState("")
 
     function addName(event) {
         setName(event.target.value)
@@ -19,9 +18,6 @@ function DogWalkForm() {
         setOwner(event.target.value)
     }
 
-    function addTemperament(event) {
-        setTemperament(event.target.value)
-    }
 
     function handleSubmit(event) {
         event.preventDefault()
