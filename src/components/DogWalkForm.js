@@ -1,37 +1,54 @@
 import React, { useState } from 'react'
 
-function DogWalkForm() {
+function DogWalkForm({dog}) {
 
-    const [name, setName] = useState("")
-    const [address, setAddress] = useState("")
-    const [owner, setOwner] = useState("")
+    const [dogWalker, setDogWalker] = useState("")
+    const [startTime, setStartTime] = useState("")
+    const [length, setLength ] = useState("")
 
-    function addName(event) {
-        setName(event.target.value)
+    
+
+
+    function addDogWalker(event) {
+        setDogWalker(event.target.value)
     }
 
-    function addAddress(event) {
-        setAddress(event.target.value)
+    function addStartTime(event) {
+        setStartTime(event.target.value)
     }
 
-    function addOwner(event) {
-        setOwner(event.target.value)
+    function addLength(event) {
+        setLength(event.target.value)
     }
+
 
 
     function handleSubmit(event) {
         event.preventDefault()
-        let new_dog = {name: name, address: address, owner: owner}
+        let new_walk = { dogwalker: dogWalker, starttime: startTime, length: length, dog_id: dog.id }
+        console.log(new_walk)
         
-        fetch("http://localhost:9292/dogs", {
+        fetch("http://localhost:9292/walks", {
             method: 'POST',
             headers: {
             'Content-Type' : 'application/json'
             },
-            body: JSON.stringify(new_dog) ,
+            body: JSON.stringify(new_walk) ,
             })
-            .then( r => r.json())
-            .then(data => console.log(data ) )
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                // Do something with data
+            })
+
+            // fetch('http://localhost:9292/walks')
+            // .then(function (response) {
+            //     return response.json();
+            // })
+            // .then(function (data) {
+            //     // Do something with data
+            // })
         }
     
 
@@ -39,17 +56,20 @@ function DogWalkForm() {
 
     return (
         <div>
-            <span>Walk hours are 9am to 6pm</span><br></br>
-            <h3> Add a new dog: </h3>
-            <form onSubmit={handleSubmit}>
-                <label>Name: </label>
-                <input onChange={addName} type= "text" value={name} placeholder="dogname"></input>
-                <label>Address: </label>
-                <input onChange={addAddress} type="integer" value={address} placeholder="address"></input>
-                <label>Owner: </label>
-                <input onChange={addOwner} type="text" value={owner} placeholder="owner"></input>
-                <button type="submit">Submit</button>
-            </form>
+
+        
+          
+            
+        <form>
+          <h3> Add a new Walk: </h3>
+          <label>DogWalker: </label>
+          <input onChange={addDogWalker} type="text" placeholder="dogwalker"></input>
+          <label>Start Time: </label>
+          <input onChange={addStartTime} type="time" placeholder="starttime"></input>
+          <label>length: </label>
+          <input onChange={addLength} type="text" placeholder="length"></input>
+          <button onClick={handleSubmit} type="submit">Submit</button>
+        </form>
         </div>
     )
 }
