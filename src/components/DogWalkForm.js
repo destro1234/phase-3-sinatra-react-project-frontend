@@ -5,8 +5,7 @@ function DogWalkForm({dog}) {
     const [dogWalker, setDogWalker] = useState("")
     const [startTime, setStartTime] = useState("")
     const [length, setLength ] = useState("")
-
-    
+    const [ walks, setWalks ] = useState([])
 
 
     function addDogWalker(event) {
@@ -27,6 +26,7 @@ function DogWalkForm({dog}) {
         event.preventDefault()
         let new_walk = { dogwalker: dogWalker, starttime: startTime, length: length, dog_id: dog.id }
         console.log(new_walk)
+        console.log(walks)
         
         fetch("http://localhost:9292/walks", {
             method: 'POST',
@@ -39,16 +39,10 @@ function DogWalkForm({dog}) {
                 return response.json();
             })
             .then(function (data) {
-                // Do something with data
+                
+                setWalks([...walks, data])
+                console.log(dog.walks)
             })
-
-            // fetch('http://localhost:9292/walks')
-            // .then(function (response) {
-            //     return response.json();
-            // })
-            // .then(function (data) {
-            //     // Do something with data
-            // })
         }
     
 
@@ -57,7 +51,7 @@ function DogWalkForm({dog}) {
     return (
         <div>
 
-        
+            
           
             
         <form>
