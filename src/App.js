@@ -6,14 +6,25 @@ import Home from './components/Home.js'
 import Walk from './components/Walk.js'
 function App() {
 
-  const [ allDogs, setAllDogs ] = useState([])
+  const [ dogs, setDogs ] = useState([])
+  const [ allWalks, setAllWalks] = useState([])
  
 
   useEffect(() => {
     fetch("http://localhost:9292/dogs")
     .then((r) => r.json())
-    .then((data) => setAllDogs(data));
+    .then((data) => {
+      setDogs(data)});
   }, [])
+
+  useEffect(() => {
+    fetch("http://localhost:9292/walks")
+    .then((r) => r.json())
+    .then((data) => setAllWalks(data) )
+
+  }, [])
+
+
     
 
 
@@ -23,42 +34,17 @@ function App() {
 
     <Router>
         <Routes>
-          <Route path="/walks" element={<Walk dogs={allDogs} setDogs={setAllDogs}/>}></Route>
-          <Route path="/" element={<Home dogs={allDogs}/>}></Route>
+          <Route path="/walks" element={<Walk dogs={dogs} setDogs={setDogs} walks={allWalks} setWalks={setAllWalks}/>}></Route>
+          <Route path="/" element={<Home />}></Route>
 
           
         </Routes>
       </Router>
-
-      
-      
-      {/* <Header/>
-      <DogWalkForm/>
-      <DogList dogs={allDogs}/> */}
-    </React.Fragment>
+      </React.Fragment>
 
       
     
   )
-
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header>
-  //   </div>
-  // );
   
 }
 

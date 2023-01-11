@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 
-function DogWalkForm({dog}) {
+function DogWalkForm({dog, walks, setWalks}) {
 
     const [dogWalker, setDogWalker] = useState("")
     const [startTime, setStartTime] = useState("")
     const [length, setLength ] = useState("")
-    const [ walks, setWalks ] = useState([])
 
 
     function addDogWalker(event) {
@@ -24,9 +23,8 @@ function DogWalkForm({dog}) {
 
     function handleSubmit(event) {
         event.preventDefault()
+        
         let new_walk = { dogwalker: dogWalker, starttime: startTime, length: length, dog_id: dog.id }
-        console.log(new_walk)
-        console.log(walks)
         
         fetch("http://localhost:9292/walks", {
             method: 'POST',
@@ -35,14 +33,8 @@ function DogWalkForm({dog}) {
             },
             body: JSON.stringify(new_walk) ,
             })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                
-                setWalks([...walks, data])
-                console.log(dog.walks)
-            })
+            .then( r => r.json())
+            .then(data => setWalks([...walks, data] ))
         }
     
 
@@ -70,28 +62,4 @@ function DogWalkForm({dog}) {
 
 export default DogWalkForm;
 
-/* <h1>New Walk</h1>
 
-<h3>Add a new dog:</h3>
-
-<label for="dog[name]">Dog: </label>
-<input type="text" name="dog[name]" value="">
-
-<label for="dog[owner_name]">Owner: </label>
-<input type="text" name="dog[owner_name]" value="">
-
-<label for="dog[address]">Address: </label>
-<input type="text" name="dog[address]" value=""><br><br>
-
-<label for="walk[date]">Date: </label>
-<input type="date" name="walk[date]" value="" min="2019-01-01" max="2019-31-12" required><br>
-
-<label for="walk[pickup_time]">Pickup Time: </label>
-<input type="time" id="pickup_time" name="walk[pickup_time]" value="" min="9:00" max="18:00">
-
-<span>Walk hours are 9am to 6pm</span><br>
-
-<label for="length">Length of walk,15 or 30mins: </label>
-<input type="text" name="walk[length]" value="">mins<br>
-
-<input type="submit" name="submit" value="Submit"> */

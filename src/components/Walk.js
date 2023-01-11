@@ -1,10 +1,11 @@
-import React from 'react'
+import React  from 'react'
 import DogCard from './DogCard.js'
 import AddDogForm from './AddDogForm.js'
 
 
 
-function Walk({dogs, setDogs}) {
+function Walk({dogs, setDogs, setWalks, walks}) {
+
 
 
   const walkers = [
@@ -13,10 +14,16 @@ function Walk({dogs, setDogs}) {
     {name: "Kevin", image: "https://as1.ftcdn.net/v2/jpg/00/31/99/94/1000_F_31999482_2I5NDUN03nMQK9YpxaIkRZmWYvrXMTCE.jpg"}
   ]
 
-  
+  function handleDelete(event, dog) {
     
-
-    return (
+    fetch(`http://localhost:9292/dogs/${dog.id}`, {
+        method: 'DELETE',
+        })
+        .then( r => (r.json()))
+        .then( data => setDogs(dogs.filter( dog => dog.id !== data.id))) 
+      }
+      
+      return (
       <div>
         <h1 className="text-center">Welcome to the Walks Page!</h1>
 
@@ -38,21 +45,22 @@ function Walk({dogs, setDogs}) {
           
         
           
-        <div>
+        
         <AddDogForm setDogs={setDogs} dogs={dogs}/>
 
-          <br></br>
-          <br></br>
-        <h1 className="text-center">These are the dogs</h1>
-        <div>
-            {dogs.map( (dog) => (
-                <div>
-                
-                  
-                  <DogCard key={dog.id} dog={dog}/>
-                   
+        <br></br>
+        <br></br>
 
-                </div>
+        <div>
+          
+        <h1 className="text-center">These are the dogs</h1>
+        <div className="card">
+            {dogs.map( (dog) => (
+                <div className="card-body">
+
+                  <DogCard key={dog.id} dog={dog} setDogs={setDogs} setWalks={setWalks} walks={walks} dogs={dogs} handleDelete={handleDelete}/>
+                              
+                  </div>
             ))}
             
         </div>

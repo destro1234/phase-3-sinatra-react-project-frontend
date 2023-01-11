@@ -36,17 +36,14 @@ function AddDogForm({dogs, setDogs}) {
             body: JSON.stringify(new_dog) ,
             })
             .then( r => r.json())
-            .then(data => console.log(data ) )
+            .then(data => setDogs([...dogs, data] )
 
-            setDogs([...dogs, new_dog])
+            )
         }
-    
-
-    
-
-    return (
-        <div>
-            <span>Walk hours are 9am to 6pm</span><br></br>
+        
+        return (
+        <div className="text-center">
+            <span>Walk hours are 7am to 11pm</span><br></br>
             <h3> Add a new dog: </h3>
             <form onSubmit={handleSubmit}>
                 <label>Name: </label>

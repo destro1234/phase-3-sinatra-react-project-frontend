@@ -1,69 +1,86 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import DogWalkForm from './DogWalkForm.js'
+import WalkCard from './WalkCard.js'
 
-function DogCard ({dog}) {
+function DogCard ({dog, setWalks, walks, dogs, handleDelete}) {
 
     const [clicked, setClicked] = useState(false)
+    const [thisDogsWalks, setThisDogsWalks ] = useState([])
 
-    function handleClick(event) {
+    useEffect(() => {
+        fetch(`http://localhost:9292/dogs/${dog.id}/walks`)
+        .then( r => r.json())
+        .then( data => setThisDogsWalks(data))
+    }, [dog.id])
+
+    function handleClick() {
         setClicked(!clicked)
       }
-  
-      function handleDelete(event, dog) {
-          console.log(event)
-          console.log(dog.id)
-          fetch(`http://localhost:9292/dogs/${dog.id}`, {
-              method: 'DELETE',
-              })
-              .then(res => res.json()) // or res.json()
-            //   .then(res => console.log(res))
-          }
 
-          function handleDeleteWalk(event,walk) {
-            console.log(event)
-            fetch(`http://localhost:9292/walks/${walk.id}`, {
-                method: 'DELETE',
-            })
-          }
+      function handleDeleteWalk(event, walk) {
+        
+        fetch(`http://localhost:9292/walks/${walk.id}`, {
+            method: 'DELETE',
+        })
+        .then( r => r.json())
+        .then( data => setWalks(walks.filter( w => w.id !== data.id))) 
+    }
+
+    // let this_dogs_walks = walks.filter((w) => { return w.dog_id === dog.id})
 
           
     return (
-        <div>
-            <div className="card image-thumbnail">
-                <h2>{dog.name}</h2>
-                <img className="card-img-top" src={dog.image} alt="dog"></img>
-                
-                
+        <div className="card">
+            <div className="card-body">
+            <div className="row">
 
-                {clicked ? <DogWalkForm dog={dog} /> : null }
+            
+                <div class="col-xs-6">
 
+                    <h2>{dog.name}</h2>
+                <img className="card-img-top image-thumbnail img-fluid" style={{width: 250}} src={dog.image} alt="dog"></img>
                 
-                
+                {clicked ? <DogWalkForm dog={dog} setWalks={setWalks} walks={walks} /> : null }
                 <br></br>
-                <p>{console.log(dog.walks)}</p>
+                </div>
+                
+                
+                
 
+                
+                <div class="col-xs-6" style={{margin: 50}}>
+                    <h4>Walks:</h4>
 
-                <div>
-                    <h1>Walks:</h1>
-                <ol>
-                    {dog.walks.map((walk) => {
+                    {
+                
+                    thisDogsWalks.map((walk) => {
+                        
                         return (
-                        <li>
-                            <p>Start Time: {walk.starttime}</p>
-                            <p>Walker: {walk.dogwalker}</p>
-                            <p>Length: {walk.length} </p>
-                            <button onClick={(event) => handleDeleteWalk(event, walk)}>Delete Walk</button>
-                            </li>)
+
+                            
+                        
+                            
+                            <WalkCard key={walk.id} walk={walk} dog={dog} walks={walks} setWalks={setWalks} dogs={dogs} handleDeleteWalk={handleDeleteWalk}/>
+
+                            )
+                    
                     })}
-                </ol>
+                    
+                    
+                    </div>
+
+                
+
+                
+
+                    
+                
                 </div>
 
                 <button  className="btn btn-primary" onClick={handleClick}>Book a walk</button>
                 <button  className="btn btn-primary" onClick={(event) => handleDelete(event, dog)}>Remove Dog</button>
-
-
-                </div>
                 
+                </div>
         </div>
     )
 }
