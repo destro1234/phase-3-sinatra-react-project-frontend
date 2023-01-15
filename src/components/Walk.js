@@ -6,7 +6,7 @@ import AddDogForm from './AddDogForm.js'
 
 function Walk({dogs, setDogs, setWalks, walks}) {
 
-
+// console.log(walks)
 
   const walkers = [
     {name: "Max", image: "https://i.ytimg.com/vi/Cbtkoo3zAyI/maxresdefault.jpg"},
@@ -14,14 +14,10 @@ function Walk({dogs, setDogs, setWalks, walks}) {
     {name: "Kevin", image: "https://as1.ftcdn.net/v2/jpg/00/31/99/94/1000_F_31999482_2I5NDUN03nMQK9YpxaIkRZmWYvrXMTCE.jpg"}
   ]
 
-  function handleDelete(event, dog) {
-    
-    fetch(`http://localhost:9292/dogs/${dog.id}`, {
-        method: 'DELETE',
-        })
-        .then( r => (r.json()))
-        .then( data => setDogs(dogs.filter( dog => dog.id !== data.id))) 
-      }
+  
+  
+
+  
       
       return (
       <div>
@@ -47,7 +43,7 @@ function Walk({dogs, setDogs, setWalks, walks}) {
           
         
         <AddDogForm setDogs={setDogs} dogs={dogs}/>
-
+          {console.log(dogs)}
         <br></br>
         <br></br>
 
@@ -55,13 +51,13 @@ function Walk({dogs, setDogs, setWalks, walks}) {
           
         <h1 className="text-center">These are the dogs</h1>
         <div className="card">
-            {dogs.map( (dog) => (
+            {dogs ? dogs.map( (dog) => (
                 <div className="card-body">
 
-                  <DogCard key={dog.id} dog={dog} setDogs={setDogs} setWalks={setWalks} walks={walks} dogs={dogs} handleDelete={handleDelete}/>
+                  <DogCard key={dog.id} dog={dog} setDogs={setDogs} setWalks={setWalks} walks={walks}  dogs={dogs}/>
                               
                   </div>
-            ))}
+            )) : null }
             
         </div>
         

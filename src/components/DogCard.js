@@ -1,32 +1,78 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import DogWalkForm from './DogWalkForm.js'
 import WalkCard from './WalkCard.js'
 
-function DogCard ({dog, setWalks, walks, dogs, handleDelete}) {
+function DogCard ({dog, setWalks, dogs, setDogs}) {
 
     const [clicked, setClicked] = useState(false)
-    const [thisDogsWalks, setThisDogsWalks ] = useState([])
 
-    useEffect(() => {
-        fetch(`http://localhost:9292/dogs/${dog.id}/walks`)
-        .then( r => r.json())
-        .then( data => setThisDogsWalks(data))
-    }, [dog.id])
-
+    
     function handleClick() {
         setClicked(!clicked)
       }
-
+      
       function handleDeleteWalk(event, walk) {
         
         fetch(`http://localhost:9292/walks/${walk.id}`, {
             method: 'DELETE',
         })
         .then( r => r.json())
-        .then( data => setWalks(walks.filter( w => w.id !== data.id))) 
+        .then( data => deleteWalk(data))
+            // setWalks(dog.walks.filter( w => w.id !== data.id))) 
     }
 
-    // let this_dogs_walks = walks.filter((w) => { return w.dog_id === dog.id})
+    // fetch("http://localhost:9292/walks", {
+    //                 method: 'POST',
+    //                 headers: {
+    //                 'Content-Type' : 'application/json'
+    //                 },
+    //                 body: JSON.stringify(new_walk) ,
+    //                 })
+    //                 .then( r => r.json())
+                    
+    //                 .then(data => { addWalk(data)
+    //                     // setWalks([...walks, data])
+    //                     })
+
+
+
+
+    function handleDelete(event, dog) {
+       fetch(`http://localhost:9292/dogs/${dog.id}`, {
+            method: 'DELETE',
+            })
+            .then( r => (r.json()))
+            .then( data => setDogs(dogs.filter( dog => dog.id !== data.id))) 
+          }
+
+    function deleteWalk(walk) {
+        let index = dog.walks.findIndex((w) => { return w.id === walk.id})
+        console.log(index)
+        console.log(...dog.walks)
+        let deletedWalk = dog.walks.splice(index, 1)
+        console.log(...dog.walks)
+        // const newWalks = [...dog.walks]
+        console.log(deletedWalk)
+
+        const filteredDogs = dogs.filter( d => {return d.id !== walk.dog_id})
+        const newDogs = [...filteredDogs, dog]
+        console.log(...filteredDogs, dog)
+        setDogs(newDogs.sort((a, b) => { return a.id - b.id }))
+    }
+
+    
+    
+    function addWalk(walk) {
+            const newWalks = [...dog.walks, walk]
+
+            dog.walks = newWalks
+
+            const filteredDogs = dogs.filter( d => {return d.id !== walk.dog_id})
+            const newDogs = [...filteredDogs, dog]
+            
+            setDogs(newDogs.sort((a, b) => { return a.id - b.id }))
+            setClicked(!clicked)
+          }
 
           
     return (
@@ -40,7 +86,7 @@ function DogCard ({dog, setWalks, walks, dogs, handleDelete}) {
                     <h2>{dog.name}</h2>
                 <img className="card-img-top image-thumbnail img-fluid" style={{width: 250}} src={dog.image} alt="dog"></img>
                 
-                {clicked ? <DogWalkForm dog={dog} setWalks={setWalks} walks={walks} /> : null }
+                {clicked ? <DogWalkForm dog={dog} setWalks={setWalks} walks={dog.walks} addWalk={addWalk} /> : null }
                 <br></br>
                 </div>
                 
@@ -53,18 +99,15 @@ function DogCard ({dog, setWalks, walks, dogs, handleDelete}) {
 
                     {
                 
-                    thisDogsWalks.map((walk) => {
+                    dog.walks ? dog.walks.map((walk) => {
                         
                         return (
-
-                            
                         
-                            
-                            <WalkCard key={walk.id} walk={walk} dog={dog} walks={walks} setWalks={setWalks} dogs={dogs} handleDeleteWalk={handleDeleteWalk}/>
+                        <WalkCard key={walk.id} walk={walk} dog={dog} walks={dog.walks} setWalks={setWalks} dogs={dogs} handleDeleteWalk={handleDeleteWalk}/>
 
                             )
                     
-                    })}
+                    }) : null}
                     
                     
                     </div>

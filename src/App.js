@@ -7,22 +7,25 @@ import Walk from './components/Walk.js'
 function App() {
 
   const [ dogs, setDogs ] = useState([])
-  const [ allWalks, setAllWalks] = useState([])
+
  
 
   useEffect(() => {
     fetch("http://localhost:9292/dogs")
     .then((r) => r.json())
     .then((data) => {
-      setDogs(data)});
+      setDogs(data)
+    });
   }, [])
 
-  useEffect(() => {
-    fetch("http://localhost:9292/walks")
-    .then((r) => r.json())
-    .then((data) => setAllWalks(data) )
+  
 
-  }, [])
+  // useEffect(() => {
+  //   fetch("http://localhost:9292/walks")
+  //   .then((r) => r.json())
+  //   .then((data) => setAllWalks(data) )
+
+  // }, [])
 
 
     
@@ -34,7 +37,7 @@ function App() {
 
     <Router>
         <Routes>
-          <Route path="/walks" element={<Walk dogs={dogs} setDogs={setDogs} walks={allWalks} setWalks={setAllWalks}/>}></Route>
+          <Route path="/walks" element={<Walk dogs={dogs} setDogs={setDogs} />}></Route>
           <Route path="/" element={<Home />}></Route>
 
           

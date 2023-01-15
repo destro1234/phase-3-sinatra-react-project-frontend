@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function DogWalkForm({dog, walks, setWalks}) {
+function DogWalkForm({dog, addWalk}) {
 
     const [dogWalker, setDogWalker] = useState("")
     const [startTime, setStartTime] = useState("")
@@ -19,23 +19,30 @@ function DogWalkForm({dog, walks, setWalks}) {
         setLength(event.target.value)
     }
 
+    
+
 
 
     function handleSubmit(event) {
         event.preventDefault()
         
         let new_walk = { dogwalker: dogWalker, starttime: startTime, length: length, dog_id: dog.id }
-        
         fetch("http://localhost:9292/walks", {
-            method: 'POST',
-            headers: {
-            'Content-Type' : 'application/json'
-            },
-            body: JSON.stringify(new_walk) ,
-            })
-            .then( r => r.json())
-            .then(data => setWalks([...walks, data] ))
-        }
+                    method: 'POST',
+                    headers: {
+                    'Content-Type' : 'application/json'
+                    },
+                    body: JSON.stringify(new_walk) ,
+                    })
+                    .then( r => r.json())
+                    
+                    .then(data => { addWalk(data)
+                        // setWalks([...walks, data])
+                        })
+
+            
+                
+    }
     
 
     
