@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-function EditDogWalkForm({walk, setWalks, walks}) {
+function EditDogWalkForm({walk, dog, dogs, setDogs}) {
 
     const [dogWalker, setDogWalker] = useState("")
     const [startTime, setStartTime] = useState("")
@@ -41,18 +41,23 @@ function EditDogWalkForm({walk, setWalks, walks}) {
                 })
                 .then( r => (r.json()))
                 .then(data => {
-                    
-                    setWalks(walks.map((w) => {
-                        if (w.id === walk.id) {
-                            return data
-                        } else {
-                            return w
-                        }
-                    }))
+                    editWalk(data)
                     })
+
+                   
     
 
 }
+
+    function editWalk(walk) {
+        const editedWalk = dog.walks.find((w) => { return w.id === walk.id})
+        const filteredWalks = dog.walks.filter( w => { return w.id !== walk.id})
+        const newWalks = [...filteredWalks, editedWalk]
+        dog.walks = newWalks
+        const newDogs = [...dogs]
+        setDogs(newDogs)
+
+    }
 
     
     return (
