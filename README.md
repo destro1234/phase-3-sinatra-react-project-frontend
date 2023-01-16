@@ -2,9 +2,9 @@
 
 # Maxwells Dogs
 
-This is the front end of  a single page application that uses Javascript, JSX, Html, CSS, React, Sinatra and Ruby. It uses data from the backend through ORM framework to create and to manipulate objects in the databases.
+This is the front end of  a single page application that uses Javascript, React, AcitveRecord, Sinatra and Ruby. 
 
-On this page you can create a dog object, you can also delete a dog object. You can create walks for the dogs, delete walks for the dogs and edit walks for the dogs.
+On this page you can can add a dog or remove a dog object. You can add walks for the dogs, remove walks for the dogs and edit the details of the walks for the dogs.
 
 
 
