@@ -13,16 +13,13 @@ function DogWalkForm({dog, addWalk}) {
 
     function addStartTime(event) {
         setStartTime(event.target.value)
+
     }
 
     function addLength(event) {
         setLength(event.target.value)
     }
-
     
-
-
-
     function handleSubmit(event) {
         event.preventDefault()
         
@@ -68,5 +65,4 @@ function DogWalkForm({dog, addWalk}) {
 }
 
 export default DogWalkForm;
-
 

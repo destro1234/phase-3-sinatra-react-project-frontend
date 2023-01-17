@@ -50,12 +50,12 @@ function EditDogWalkForm({walk, dog, dogs, setDogs}) {
 }
 
     function editWalk(walk) {
-        const editedWalk = dog.walks.find((w) => { return w.id === walk.id})
+        // const editedWalk = dog.walks.find((w) => { return w.id === walk.id})
         const filteredWalks = dog.walks.filter( w => { return w.id !== walk.id})
-        const newWalks = [...filteredWalks, editedWalk]
+        const newWalks = [...filteredWalks, walk]
         dog.walks = newWalks
         const newDogs = [...dogs]
-        setDogs(newDogs)
+        setDogs(newDogs.sort((a, b) => { return a.id - b.id }))
 
     }
 

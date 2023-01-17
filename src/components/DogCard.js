@@ -9,6 +9,14 @@ function DogCard ({dog, dogs, setDogs}) {
     function handleClick() {
         setClicked(!clicked)
       }
+
+      function handleDelete(event, dog) {
+       fetch(`http://localhost:9292/dogs/${dog.id}`, {
+            method: 'DELETE',
+            })
+            .then( r => (r.json()))
+            .then( data => setDogs(dogs.filter( dog => dog.id !== data.id))) 
+          }
       
     function handleDeleteWalk(event, walk) {
         fetch(`http://localhost:9292/walks/${walk.id}`, {
@@ -18,13 +26,7 @@ function DogCard ({dog, dogs, setDogs}) {
         .then( data => deleteWalk(data)) 
     }
 
-    function handleDelete(event, dog) {
-       fetch(`http://localhost:9292/dogs/${dog.id}`, {
-            method: 'DELETE',
-            })
-            .then( r => (r.json()))
-            .then( data => setDogs(dogs.filter( dog => dog.id !== data.id))) 
-          }
+    
 
     function deleteWalk(walk) {
         let index = dog.walks.findIndex((w) => { return w.id === walk.id})
@@ -35,7 +37,7 @@ function DogCard ({dog, dogs, setDogs}) {
     
     function addWalk(walk) {
         const newWalks = [...dog.walks, walk]
-
+        console.log(newWalks)
         dog.walks = newWalks
 
         const filteredDogs = dogs.filter( d => {return d.id !== walk.dog_id})

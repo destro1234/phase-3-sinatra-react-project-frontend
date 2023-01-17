@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import EditDogWalkForm from './EditDogWalkForm.js'
 
-function WalkCard({ walk, handleDeleteWalk, dog, dogs, setDogs }) {
+function WalkCard({ walk, handleDeleteWalk, dog, dogs, setDogs, editWalk }) {
 
     const [ editClicked, setEditClicked] = useState(false)
     
@@ -18,7 +18,7 @@ function WalkCard({ walk, handleDeleteWalk, dog, dogs, setDogs }) {
             <button onClick={(event) => handleDeleteWalk(event, walk)}>Delete Walk</button>
             <button onClick={(event) => showForm(event)}>Edit Walk</button>
                             
-            { editClicked ? <EditDogWalkForm walk={walk} dog={dog} dogs={dogs} setDogs={setDogs} /> : null}
+            { editClicked ? <EditDogWalkForm walk={walk} dog={dog} dogs={dogs} setDogs={setDogs} editWalk={editWalk} /> : null}
 
         </div>
     )

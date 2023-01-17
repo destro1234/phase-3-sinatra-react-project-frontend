@@ -17,20 +17,6 @@ function App() {
       setDogs(data)
     });
   }, [])
-
-  
-
-  // useEffect(() => {
-  //   fetch("http://localhost:9292/walks")
-  //   .then((r) => r.json())
-  //   .then((data) => setAllWalks(data) )
-
-  // }, [])
-
-
-    
-
-
   
   return (
     <React.Fragment>
