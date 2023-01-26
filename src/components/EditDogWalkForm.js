@@ -24,7 +24,7 @@ function EditDogWalkForm({walk, dog, dogs, setDogs}) {
     function handleUpdate (event) {
         
         event.preventDefault()
-        console.log(event)
+        
         
 
         fetch(`http://localhost:9292/walks/${walk.id}`, {
@@ -50,7 +50,7 @@ function EditDogWalkForm({walk, dog, dogs, setDogs}) {
 }
 
     function editWalk(walk) {
-        // const editedWalk = dog.walks.find((w) => { return w.id === walk.id})
+        
         const filteredWalks = dog.walks.filter( w => { return w.id !== walk.id})
         const newWalks = [...filteredWalks, walk]
         dog.walks = newWalks

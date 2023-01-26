@@ -4,22 +4,15 @@ import AddDogForm from './AddDogForm.js'
 
 
 
-function Walk({dogs, setDogs, setWalks, walks}) {
-
-// console.log(walks)
+function Walk({dogs, setDogs}) {
 
   const walkers = [
     {name: "Max", image: "https://i.ytimg.com/vi/Cbtkoo3zAyI/maxresdefault.jpg"},
     {name: "Natanael", image: "https://media.gettyimages.com/id/1296390144/photo/man-walking-a-labrador-retriever-dog.jpg?s=612x612&w=gi&k=20&c=_mKCWsc1iMh1axW3W8mggGK2b700JFxgDFx_5lOjqhU="},
     {name: "Kevin", image: "https://as1.ftcdn.net/v2/jpg/00/31/99/94/1000_F_31999482_2I5NDUN03nMQK9YpxaIkRZmWYvrXMTCE.jpg"}
   ]
-
   
-  
-
-  
-      
-      return (
+  return (
       <div>
         <h1 className="text-center">Welcome to the Walks Page!</h1>
 
@@ -43,7 +36,7 @@ function Walk({dogs, setDogs, setWalks, walks}) {
           
         
         <AddDogForm setDogs={setDogs} dogs={dogs}/>
-          {console.log(dogs)}
+          
         <br></br>
         <br></br>
 
@@ -54,7 +47,7 @@ function Walk({dogs, setDogs, setWalks, walks}) {
             {dogs ? dogs.map( (dog) => (
                 <div className="card-body">
 
-                  <DogCard key={dog.id} dog={dog} setDogs={setDogs} setWalks={setWalks} walks={walks}  dogs={dogs}/>
+                  <DogCard key={dog.id} dog={dog} setDogs={setDogs} dogs={dogs}/>
                               
                   </div>
             )) : null }

@@ -7,7 +7,7 @@ import Walk from './components/Walk.js'
 function App() {
 
   const [ dogs, setDogs ] = useState([])
-
+console.log(dogs)
  
 
   useEffect(() => {
@@ -17,6 +17,7 @@ function App() {
       setDogs(data)
     });
   }, [])
+   
   
   return (
     <React.Fragment>

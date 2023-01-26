@@ -26,24 +26,28 @@ function AddDogForm({dogs, setDogs}) {
 
     function handleSubmit(event) {
         event.preventDefault()
-        let new_dog = {name: name, address: address, owner: owner, image: image}
+        let new_dog = {name: name, address: address, owner: owner, image: image, walks: []}
         
         fetch("http://localhost:9292/dogs", {
             method: 'POST',
             headers: {
             'Content-Type' : 'application/json'
             },
-            body: JSON.stringify(new_dog) ,
+            body: JSON.stringify({new_dog}) ,
             })
             .then( r => r.json())
-            .then(data => setDogs([...dogs, data] )
+            .then(data => { 
+                
+                setDogs([...dogs, data] )
+        
+            }
 
             )
         }
         
         return (
         <div className="text-center">
-            <span>Walk hours are 7am to 11pm</span><br></br>
+            <span>Walk hours are 12PM to 11pm</span><br></br>
             <h3> Add a new dog: </h3>
             <form onSubmit={handleSubmit}>
                 <label>Name: </label>

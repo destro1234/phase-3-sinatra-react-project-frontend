@@ -11,7 +11,7 @@ function WalkCard({ walk, handleDeleteWalk, dog, dogs, setDogs, editWalk }) {
   
     return (
         <div>
-            <p>Start Time: {walk.starttime}</p>
+            <p>Start Time: {walk.starttime} PM</p>
             <p>Walker: {walk.dogwalker}</p>
             <p>Length: {walk.length} </p>
 

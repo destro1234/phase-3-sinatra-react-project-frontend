@@ -11,6 +11,7 @@ function DogCard ({dog, dogs, setDogs}) {
       }
 
       function handleDelete(event, dog) {
+        console.log(dog)
        fetch(`http://localhost:9292/dogs/${dog.id}`, {
             method: 'DELETE',
             })
@@ -36,14 +37,15 @@ function DogCard ({dog, dogs, setDogs}) {
     }
     
     function addWalk(walk) {
-        const newWalks = [...dog.walks, walk]
-        console.log(newWalks)
-        dog.walks = newWalks
+        if (dog.walks) {
+           let newWalks = [...dog.walks, walk] 
+           dog.walks = newWalks
+        }
 
-        const filteredDogs = dogs.filter( d => {return d.id !== walk.dog_id})
-        const newDogs = [...filteredDogs, dog]
-            
-        setDogs(newDogs.sort((a, b) => { return a.id - b.id }))
+        else {
+            dog.walks = [walk]
+        }
+        setDogs(dogs.sort((a, b) => { return a.id - b.id }))
         setClicked(!clicked)
           }
 
@@ -54,7 +56,7 @@ function DogCard ({dog, dogs, setDogs}) {
             <div className="row">
 
             
-                <div class="col-xs-6">
+                <div className="col-xs-6">
 
                     <h2>{dog.name}</h2>
                 <img className="card-img-top image-thumbnail img-fluid" style={{width: 250}} src={dog.image} alt="dog"></img>
@@ -63,7 +65,7 @@ function DogCard ({dog, dogs, setDogs}) {
                 <br></br>
                 </div>
            
-                <div class="col-xs-6" style={{margin: 50}}>
+                <div className="col-xs-6" style={{margin: 50}}>
                     <h4>Walks:</h4>
 
                     {

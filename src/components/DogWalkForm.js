@@ -33,7 +33,7 @@ function DogWalkForm({dog, addWalk}) {
                     })
                     .then( r => r.json())
                     
-                    .then(data => { addWalk(data)
+                    .then(data => {addWalk(data)
                         // setWalks([...walks, data])
                         })
 
